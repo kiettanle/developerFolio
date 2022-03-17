@@ -6,6 +6,13 @@ export default function ExperienceCard({cardInfo, isDark}) {
   const [colorArrays, setColorArrays] = useState([]);
   const imgRef = createRef();
 
+  const openInNewTab = (url) => {
+    if (url) {
+      const newWindow = window.open(url, '_blank')
+    if (newWindow) newWindow.opener = null
+    }
+  }
+
   function getColorArrays() {
     const colorThief = new ColorThief();
     setColorArrays(colorThief.getColor(imgRef.current));
@@ -45,6 +52,7 @@ export default function ExperienceCard({cardInfo, isDark}) {
           src={cardInfo.companylogo}
           alt={cardInfo.company}
           onLoad={() => getColorArrays()}
+          onClick={() => openInNewTab(cardInfo.website)}
         />
       </div>
       <div className="experience-text-details">
